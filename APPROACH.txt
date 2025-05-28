@@ -1,0 +1,34 @@
+gridlock - traffic demand 
+
+hackerearth metric is r2*100 . my score was 91.9389 on last submit
+
+eda -
+geohash matters most. day 48 has full labels. day 49 train file only has morning 
+slots till 8 but test is from slot 9 onwards so normal train/test split feeling 
+was weird
+
+features i added -
+time stuff (hour min slot), sin cos 
+geohash prefix p3 p4 p5
+lat lon from geohash
+same geohash+slot value from day 48 
+temp missing values filled with median per area
+for one lgbm model also tried lag features and target encoding with kfold
+
+models -
+first catboost + lightgbm baseline ~91.6 something
+then calibration using day48 vs day49 per geohash (script in folder)
+morning slots model - train on day48 only, predict day49 test (morning_to_daytime.py)
+blended everything. weights i tuned by submitting diff csvs on LB not gonna lie
+
+final trick that helped - had another lgbm that predicts higher on peaks. 
+for top 0.4% rows took max(normal_pred, 0.97*lgbm_pred). without that was ~91.90
+
+how to run -
+dataset/ needs train.csv test.csv from download
+python run_predict.py  -> writes output/submission.csv
+or notebook notebooks/gridlock_solution.ipynb
+
+libs used - pandas numpy sklearn lightgbm catboost
+
+see NOTES.txt for failed ideas

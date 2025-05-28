@@ -1,0 +1,17 @@
+failed stuff (dont repeat)
+
+- blended 70% day48 same slot -> LB went to 84 lmao
+- multiplied all preds by 1.003 -> worse
+- tail boost 1.075 on whole file on final stack -> worse again
+
+what worked
+- m2d morning model mixed ~14%
+- 98.3/1.7 blend with v3 lgbm before max step
+- max() on top 0.4% lgbm rows
+
+weights i remember
+push triple stack base
+then 0.983 stack + 0.017 lgbm  
+quantile 0.996 for max mask
+
+submitted jump_max_q996.csv same as output/submission.csv here
